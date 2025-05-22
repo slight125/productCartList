@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desserts - Product List with Cart</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Desserts</h1>
+    </header>
+
+    <main class="product-container">
+      <div class="products-grid" id="products-grid">
+      
+      </div>
+    </main>
+
+    <aside class="cart-container">
+      <div class="cart-header">
+        <h2>Your Cart (<span id="cart-count">0</span>)</h2>
+      </div>
+      
+      <div class="cart-content">
+        <div class="cart-items" id="cart-items">
+          
+        </div>
+        
+        <div class="empty-cart" id="empty-cart">
+          <img src="../product-list-with-cart-main2/assets/illustration-empty-cart.svg" alt="Empty cart" class="empty-cart-image">
+          <p>Your added items will appear here</p>
+        </div>
+      </div>
+      
+      <div class="cart-summary" id="cart-summary">
+        <div class="order-total">
+          <span>Order Total</span>
+          <span id="total-price">$0.00</span>
+        </div>
+        
+        <div class="delivery-info">
+          <span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            This is a <span class="highlight">carbon-neutral</span> delivery
+          </span>
+        </div>
+        
+        <button class="confirm-btn" id="confirm-order">Confirm Order</button>
+      </div>
+    </aside>
+  </div>
+
+  
+  <div class="modal" id="order-modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>Order Confirmed</h2>
+      <p class="modal-subtitle">We hope you enjoy your food!</p>
+      
+      <div class="order-summary" id="order-summary">
+     
+      </div>
+      
+      <div class="order-total-summary">
+        <span>Order Total</span>
+        <span id="modal-total-price">$0.00</span>
+      </div>
+      
+      <button class="new-order-btn" id="new-order-btn">Start New Order</button>
+    </div>
+  </div>
+
+  
+  <template id="product-template">
+    <div class="product-card">
+      <div class="product-image">
+        <img src="/placeholder.svg" alt="">
+        <div class="quantity-controls">
+          <button class="quantity-btn decrease">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="quantity">1</span>
+          <button class="quantity-btn increase">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="product-details">
+        <div class="product-category"></div>
+        <div class="product-name"></div>
+        <div class="product-price"></div>
+      </div>
+      <button class="add-to-cart-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3H5L5.4 5M5.4 5H21L17 13H7M5.4 5L7 13M7 13L4.707 15.293C4.077 15.923 4.523 17 5.414 17H17M17 17C15.895 17 15 17.895 15 19C15 20.105 15.895 21 17 21C18.105 21 19 20.105 19 19C19 17.895 18.105 17 17 17ZM9 19C9 20.105 8.105 21 7 21C5.895 21 5 20.105 5 19C5 17.895 5.895 17 7 17C8.105 17 9 17.895 9 19Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Add to Cart
+      </button>
+    </div>
+  </template>
+
+  <template id="cart-item-template">
+    <div class="cart-item">
+      <div class="cart-item-details">
+        <div class="cart-item-name"></div>
+        <div class="cart-item-quantity">
+          <span class="quantity-value"></span>×
+          <span class="item-unit-price"></span>
+          <span class="item-total-price"></span>
+        </div>
+      </div>
+      <button class="remove-item-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </template>
+
+  <template id="order-summary-item-template">
+    <div class="order-summary-item">
+      <img class="order-item-image" src="/placeholder.svg" alt="">
+      <div class="order-item-details">
+        <div class="order-item-name"></div>
+        <div class="order-item-quantity">
+          <span class="quantity-value"></span>×
+          <span class="item-unit-price"></span>
+        </div>
+      </div>
+      <div class="order-item-price"></div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
